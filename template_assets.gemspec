@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = TemplateAssets::VERSION
   s.authors     = ["Pedro de Assis"]
   s.email       = ["pedro@caiena.net"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of TemplateAssets."
-  s.description = "TODO: Description of TemplateAssets."
+  s.homepage    = "https://github.com/caiena/template_assets"
+  s.summary     = "Organizing assets per template on a Rails app"
+  s.description = "Organizing assets per template on a Rails app"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
