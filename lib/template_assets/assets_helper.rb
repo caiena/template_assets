@@ -2,7 +2,7 @@ module TemplateAssets
   module AssetsHelper
 
     def asset_exists?(subdirectory, filename)
-      Rails.cache.fetch("assets_helper::#{subdirectory}/#{filename}") do
+      TemplateAssets.cache.fetch("template_assets::assets::#{subdirectory}/#{filename}") do
         !Dir[Rails.root.join('app', 'assets', subdirectory, "#{filename}*")].empty?
       end
     end
