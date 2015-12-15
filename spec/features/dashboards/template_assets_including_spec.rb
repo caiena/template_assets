@@ -7,7 +7,7 @@ RSpec.feature 'Template assets including', type: :feature do
       visit '/dashboards'
 
       javascript = all('script', visible: false).find do |script|
-        script[:src].match /\/assets\/dashboards\/index.js.*/
+        script[:src].match /\/assets\/views\/dashboards\/index.js.*/
       end
 
       expect(javascript).not_to be_nil
@@ -18,7 +18,7 @@ RSpec.feature 'Template assets including', type: :feature do
       visit '/dashboards'
 
       stylesheet = all('link[rel=stylesheet]', visible: false).find do |link|
-        link[:href].match /\/assets\/dashboards\/index.css.*/
+        link[:href].match /\/assets\/views\/dashboards\/index.css.*/
       end
 
       expect(stylesheet).to be_nil
@@ -33,14 +33,14 @@ RSpec.feature 'Template assets including', type: :feature do
       visit '/dashboards/1'
 
       javascript = all('script', visible: false).find do |script|
-        script[:src].match /\/assets\/dashboards\/show.js.*/
+        script[:src].match /\/assets\/views\/dashboards\/show.js.*/
       end
 
       expect(javascript).not_to be_nil
 
 
       stylesheet = all('link[rel=stylesheet]', visible: false).find do |link|
-        link[:href].match /\/assets\/dashboards\/show.css.*/
+        link[:href].match /\/assets\/views\/dashboards\/show.css.*/
       end
 
       expect(stylesheet).not_to be_nil
@@ -53,14 +53,14 @@ RSpec.feature 'Template assets including', type: :feature do
       expect(current_path).to eq '/dashboards'
 
       javascript = all('script', visible: false).find do |script|
-        script[:src].match /\/assets\/dashboards\/index.js.*/
+        script[:src].match /\/assets\/views\/dashboards\/index.js.*/
       end
 
       expect(javascript).not_to be_nil
 
 
       stylesheet = all('link[rel=stylesheet]', visible: false).find do |link|
-        link[:href].match /\/assets\/dashboards\/index.css.*/
+        link[:href].match /\/assets\/views\/dashboards\/index.css.*/
       end
 
       expect(stylesheet).to be_nil

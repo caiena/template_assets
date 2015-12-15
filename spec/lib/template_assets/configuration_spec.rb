@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe TemplateAssets::Configuration do
 
-  context 'cache_store' do
+  context '#cache_store' do
     context 'in Rails.env.production' do
-      it 'has a default MemoryStore cache_store of 1MB' do
+      it 'defaults to MemoryStore of 1MB' do
         allow(Rails).to receive(:env) do
           ActiveSupport::StringInquirer.new('production')
         end
@@ -15,7 +15,7 @@ describe TemplateAssets::Configuration do
     end
 
     context 'in Rails.env.development' do
-      it 'has a default NullStore cache_store' do
+      it 'defaults to NullStore' do
         allow(Rails).to receive(:env) do
           ActiveSupport::StringInquirer.new('development')
         end
@@ -26,7 +26,7 @@ describe TemplateAssets::Configuration do
     end
 
     context 'in Rails.env.test' do
-      it 'has a default NullStore cache_store' do
+      it 'default to NullStore' do
         allow(Rails).to receive(:env) do
           ActiveSupport::StringInquirer.new('test')
         end
@@ -38,5 +38,18 @@ describe TemplateAssets::Configuration do
 
   end
 
+
+
+  context '#assets_dir' do
+    it 'defaults to "views"' do
+      config = TemplateAssets::Configuration.new
+      expect(config.assets_dir).to eq 'views'
+    end
+
+    it 'can be overriden' do
+      config = TemplateAssets::Configuration.new(assets_dir: 'overriden')
+      expect(config.assets_dir).to eq 'overriden'
+    end
+  end
 
 end
