@@ -21,6 +21,16 @@ TemplateAssets.configure do |config|
   #
   # config.assets_dir = 'views'
 
+  #   These are the javascripts extensions that template_assets searches for.
+  # If you need to increment it, use the line below.
+  #
+  # config.javascript_extensions = %w(.js .js.erb .js.coffee)
+
+  #   These are the stylesheet extensions that template_assets searches for.
+  # If you need to increment it, use the line below.
+  #
+  # config.stylesheet_extensions = %w(.css .css.erb .css.scss)
+
   #   Here you can override TemplateAssets caching.
   #   Example using memcached:
   #
