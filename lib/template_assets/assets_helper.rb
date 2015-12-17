@@ -30,12 +30,18 @@ module TemplateAssets
 
 
     def template_stylesheet_link_tag_if_exists
+      # guarding cases where ActionView::Template should not include template assets
+      return nil if template_name.nil?
+
       asset_template = in_template_assets_dir(template_name)
 
       stylesheet_link_tag(asset_template) if stylesheet_exists?(asset_template)
     end
 
     def template_javascript_include_tag_if_exists
+      # guarding cases where ActionView::Template should not include template assets
+      return nil if template_name.nil?
+
       asset_template = in_template_assets_dir(template_name)
 
       javascript_include_tag(asset_template) if javascript_exists?(asset_template)

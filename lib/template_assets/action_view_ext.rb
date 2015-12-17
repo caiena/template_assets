@@ -14,7 +14,19 @@ ActiveSupport.on_load(:action_view) do
   ActionView::TemplateRenderer.class_eval do
     def render_template_with_template_name_accessor(*args)
       template = args.first
-      @view.template_name = template.try(:virtual_path)
+
+      # IMPORTANT in case our controller action uses `send_data` to send
+      # custom data to the client, `template` will be an instance of
+      # ActionView::Template::Text, wich has no #virtual_path.
+      # TODO refactor this code, using:
+      #  - Rails 3: template.mime_type
+      #  - Rails 4 template.type
+      @view.template_name = if template.respond_to?(:virtual_path)
+        template.try(:virtual_path)
+      else
+        nil
+      end
+
       render_template_without_template_name_accessor(*args)
     end
 
