@@ -1,4 +1,5 @@
 # extending ActionView when it has been successfully loaded
+# - based on http://stackoverflow.com/a/28143878
 ActiveSupport.on_load(:action_view) do
   ActionView::Base.class_eval do
     attr_accessor :template_name
