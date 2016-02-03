@@ -51,4 +51,12 @@ And, finally, add to your _layouts_ (check the `ADD THIS!` comments):
     = template_javascript_include_tag_if_exists
 ```
 
+## gotcha
+You must enable `config.assets.compile` in order to `index` template assets to work, because `sprockets` handles files named `index` in a different way!
+Edit `config/environments/production.rb`, modifying this line
+```rb
+# Enabling assets compilation fallback to make index template assets to work properly
+config.assets.compile = true
+```
+
 And _vòila_!
