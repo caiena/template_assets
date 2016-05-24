@@ -1,7 +1,7 @@
 module TemplateAssets
   module AssetsHelper
 
-    def asset_exists?(subdirectory, filename, *extensions)
+    def asset_exists?(kind, filename, *extensions)
 
       filenames = if extensions.any?
         extensions.collect { |extension| "#{filename}#{extension}"}
@@ -9,10 +9,9 @@ module TemplateAssets
         [filename]
       end
 
-      TemplateAssets.cache.fetch("template_assets::assets::#{subdirectory}/#{filename}") do
-        filenames.any? do |filename|
-          !Dir[Rails.root.join('app', 'assets', subdirectory, filename)].empty?
-        end
+      TemplateAssets.cache.fetch("template_assets::assets::#{kind}/#{filename}") do
+        # Rails.application.assets is a Sprockets::Environment
+        filenames.any? { |filename| Rails.application.assets[filename] }
       end
     end
 
@@ -33,18 +32,20 @@ module TemplateAssets
       # guarding cases where ActionView::Template should not include template assets
       return nil if template_name.nil?
 
-      asset_template = in_template_assets_dir(template_name)
+      # IMPORTANT adding Sprockets behaviour: dashboards/index.css -> dashboards.css
+      template_asset = in_template_assets_dir(template_name).chomp('/index')
 
-      stylesheet_link_tag(asset_template) if stylesheet_exists?(asset_template)
+      stylesheet_link_tag(template_asset) if stylesheet_exists?(template_asset)
     end
 
     def template_javascript_include_tag_if_exists
       # guarding cases where ActionView::Template should not include template assets
       return nil if template_name.nil?
 
-      asset_template = in_template_assets_dir(template_name)
+      # IMPORTANT adding Sprockets behaviour: dashboards/index.js -> dashboards.js
+      template_asset = in_template_assets_dir(template_name.chomp('/index'))
 
-      javascript_include_tag(asset_template) if javascript_exists?(asset_template)
+      javascript_include_tag(template_asset) if javascript_exists?(template_asset)
     end
 
 

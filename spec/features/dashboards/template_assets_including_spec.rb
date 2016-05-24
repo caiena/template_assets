@@ -3,22 +3,24 @@ require 'rails_helper'
 RSpec.feature 'Template assets including', type: :feature do
 
   context 'dashboards#index' do
-    scenario 'javascript template is included' do
+    scenario 'templates assets (javascript and stylesheet) are included' do
       visit '/dashboards'
 
+      # IMPORTANT
+      # we're using sprockets, and so, dashboards/index.js will be compiled to
+      # dashboards.js
       javascript = all('script', visible: false).find do |script|
-        script[:src].match /\/assets\/views\/dashboards\/index.js.*/
+        # script[:src].match /\/assets\/views\/dashboards\/index.js.*/
+        script[:src].match /\/assets\/views\/dashboards.js.*/
       end
 
       expect(javascript).not_to be_nil
-    end
 
-
-    scenario 'stylesheet template is not included because it does not exist' do
-      visit '/dashboards'
-
+      # IMPORTANT
+      # we're using sprockets, and so, dashboards/index.css will be compiled to
+      # dashboards.css
       stylesheet = all('link[rel=stylesheet]', visible: false).find do |link|
-        link[:href].match /\/assets\/views\/dashboards\/index.css.*/
+        link[:href].match /\/assets\/views\/dashboards.css.*/
       end
 
       expect(stylesheet).to be_nil
@@ -52,15 +54,21 @@ RSpec.feature 'Template assets including', type: :feature do
 
       expect(current_path).to eq '/dashboards'
 
+      # IMPORTANT
+      # we're using sprockets, and so, dashboards/index.js will be compiled to
+      # dashboards.js
       javascript = all('script', visible: false).find do |script|
-        script[:src].match /\/assets\/views\/dashboards\/index.js.*/
+        # script[:src].match /\/assets\/views\/dashboards\/index.js.*/
+        script[:src].match /\/assets\/views\/dashboards.js.*/
       end
 
       expect(javascript).not_to be_nil
 
-
+      # IMPORTANT
+      # we're using sprockets, and so, dashboards/index.css will be compiled to
+      # dashboards.css
       stylesheet = all('link[rel=stylesheet]', visible: false).find do |link|
-        link[:href].match /\/assets\/views\/dashboards\/index.css.*/
+        link[:href].match /\/assets\/views\/dashboards.css.*/
       end
 
       expect(stylesheet).to be_nil
