@@ -1,13 +1,6 @@
 #
 # template_assets initializer
 #
-#   We are adding precompile instructions to Rails Asset-pipeline,
-# regarding RESTful 7 actions templates.
-#   If you need extra custom templates/actions, add them here!
-#
-
-# precompiling template/action assets
-Rails.application.config.assets.precompile << /.*\/?(index|new|show|edit).*\z/
 
 TemplateAssets.configure do |config|
   #   This is where TemplateAssets gets initialized and you can customize it
@@ -40,3 +33,13 @@ TemplateAssets.configure do |config|
   # )
   #
 end
+
+#   We are adding precompile instructions to Rails Asset-pipeline,
+# regarding RESTful 7 actions templates.
+#
+Rails.application.config.assets.precompile +=
+  [File.join(TemplateAssets.config.assets_dir, '**')]
+
+# Sprockets is not processing regex in paths anymore
+# Rails.application.config.assets.precompile <<
+#   /#{TemplateAssets.config.assets_dir}\/?(index|new|show|edit).*\z/

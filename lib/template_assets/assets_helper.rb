@@ -32,8 +32,7 @@ module TemplateAssets
       # guarding cases where ActionView::Template should not include template assets
       return nil if template_name.nil?
 
-      # IMPORTANT adding Sprockets behaviour: dashboards/index.css -> dashboards.css
-      template_asset = in_template_assets_dir(template_name).chomp('/index')
+      template_asset = in_template_assets_dir(template_name)
 
       stylesheet_link_tag(template_asset) if stylesheet_exists?(template_asset)
     end
@@ -42,8 +41,7 @@ module TemplateAssets
       # guarding cases where ActionView::Template should not include template assets
       return nil if template_name.nil?
 
-      # IMPORTANT adding Sprockets behaviour: dashboards/index.js -> dashboards.js
-      template_asset = in_template_assets_dir(template_name.chomp('/index'))
+      template_asset = in_template_assets_dir(template_name)
 
       javascript_include_tag(template_asset) if javascript_exists?(template_asset)
     end
