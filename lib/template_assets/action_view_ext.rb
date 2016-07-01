@@ -6,32 +6,34 @@
 #   if Rails::VERSION::MAJOR >= 4
 #
 
+module RenderTemplateExtension
+  def render_template(*args)
+    template = args.first
+
+    # IMPORTANT in case our controller action uses `send_data` to send
+    # custom data to the client, `template` will be an instance of
+    # ActionView::Template::Text, wich has no #virtual_path.
+    # TODO refactor this code, using:
+    #  - Rails 3: template.mime_type
+    #  - Rails 4 template.type
+    @view.template_name = if template.respond_to?(:virtual_path)
+      template.try(:virtual_path)
+    else
+      nil
+    end
+
+    super(*args)
+  end
+
+
+end
+
 ActiveSupport.on_load(:action_view) do
   ActionView::Base.class_eval do
     attr_accessor :template_name
   end
 
-  ActionView::TemplateRenderer.class_eval do
-    def render_template_with_template_name_accessor(*args)
-      template = args.first
-
-      # IMPORTANT in case our controller action uses `send_data` to send
-      # custom data to the client, `template` will be an instance of
-      # ActionView::Template::Text, wich has no #virtual_path.
-      # TODO refactor this code, using:
-      #  - Rails 3: template.mime_type
-      #  - Rails 4 template.type
-      @view.template_name = if template.respond_to?(:virtual_path)
-        template.try(:virtual_path)
-      else
-        nil
-      end
-
-      render_template_without_template_name_accessor(*args)
-    end
-
-    alias_method_chain :render_template, :template_name_accessor
-  end
+  ActionView::TemplateRenderer.send(:prepend, RenderTemplateExtension)
 
   include TemplateAssets::AssetsHelper
 end
