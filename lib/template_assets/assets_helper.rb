@@ -34,7 +34,7 @@ module TemplateAssets
 
       template_asset = in_template_assets_dir(template_name)
 
-      stylesheet_link_tag(template_asset) if stylesheet_exists?(template_asset)
+      stylesheet_link_tag(template_asset, 'data-turbolinks-track': 'reload') if stylesheet_exists?(template_asset)
     end
 
     def template_javascript_include_tag_if_exists
@@ -43,7 +43,7 @@ module TemplateAssets
 
       template_asset = in_template_assets_dir(template_name)
 
-      javascript_include_tag(template_asset) if javascript_exists?(template_asset)
+      javascript_include_tag(template_asset, 'data-turbolinks-track': 'reload') if javascript_exists?(template_asset)
     end
 
 
