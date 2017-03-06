@@ -6,24 +6,24 @@ Your `users#show` _action_ should render a `show.html.*` _template_, right? Temp
 
 ```
 # Your html template file location
-- app
-  +- views
-     +- users
-        +- show.html.haml
+app/
+├── views/
+|   ├── users
+|   |   ├── show.html.haml
 
 ===
 
 # Your "template assets" location
-- app
-  +- assets
-     +- javascripts
-     |  +- views
-     |     +- users
-     |        +- show.js.coffee
-     +- stylesheets
-        +- views
-           +- users
-              +- show.css.scss
+app/
+├── assets/
+|   ├── javascripts/
+|   |   ├── views/
+|   |   |   ├── users/
+|   |   |   |   ├── show.js.coffee
+|   ├── stylesheets
+|   |   ├── views
+|   |   |   ├── users
+|   |   |   |   ├── show.css.scss
 ```
 
 
