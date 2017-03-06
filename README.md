@@ -1,15 +1,30 @@
-= Template Assets - organizing your assets! [![IPQ](https://img.shields.io/badge/ipq-passing-brightgreen.svg)](https://img.shields.io/badge/ipq-passing-brightgreen.svg)
+# Template Assets - organizing your assets!
 
-# Why
-- TODO
+Template Assets provides a way to separate _template specific_ assets (i.e. your `User` `<form>` specific logic) from _app-wide assets_ (like your graph library) in a simple Rails-way naming convention.
 
-# How
-- TODO
+Your `users#show` _action_ should render a `show.html.*` _template_, right? Template Assets tries to _ease_ organizing and including this _template-specific_ assets by searching for (if exists) the corresponding `show.js.*` and `show.css.*` assets.
 
-# What
-- TODO
+```
+# Your html template file location
+- app
+  +- views
+     +- users
+        +- show.html.haml
 
-> Golden circle answered!
+===
+
+# Your "template assets" location
+- app
+  +- assets
+     +- javascripts
+     |  +- views
+     |     +- users
+     |        +- show.js.coffee
+     +- stylesheets
+        +- views
+           +- users
+              +- show.css.scss
+```
 
 
 # Install
